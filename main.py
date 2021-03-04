@@ -2,17 +2,23 @@ import os
 import pandas as pd
 
 from create_dataset_after_49 import create_dataset
+from create_dataset_before_49 import create_dataset_before_49
 
+###
 # Create dataset of BRD Protokolle
+###
+
 source_path = 'C:/Users/j.hammerschmitt/Downloads/Data/BRD Protokolle/'
 selected_sentences = create_dataset(source_path)
 
 df = pd.DataFrame(selected_sentences, columns=["sentence"])
-df.to_csv(os.path.join(source_path, "sentences_after_49.csv"), index=False, encoding="utf-8-sig")
+df.to_csv(os.path.join(source_path, "sentences_after_49.csv"), index=False,
+          encoding="utf-8-sig")
 
-# Load dataset and add epochs
+# Load dataset and add epochs for dataset after 49
 
-df = pd.read_csv(os.path.join(source_path, "sentences_after_49.csv"), encoding="utf-8-sig")
+df = pd.read_csv(os.path.join(source_path, "sentences_after_49.csv"),
+                 encoding="utf-8-sig")
 _, folders, _ = next(os.walk(source_path))
 names = []
 for folder in folders:
@@ -29,4 +35,16 @@ for name in names:
         names_final.append(name)
 
 df['epoch'] = names_final
-df.to_csv(os.path.join(source_path, "sentences_after_49.csv"), index=False, encoding="utf-8-sig")
+df.to_csv(os.path.join(source_path, "sentences_after_49.csv"), index=False,
+          encoding="utf-8-sig")
+
+###
+# Create dataset of data before 49
+###
+
+source_path = 'C:/Users/j.hammerschmitt/Downloads/Data_before49/'
+selected_sentences = create_dataset_before_49(source_path)
+
+df = pd.DataFrame(selected_sentences, columns=["sentence"])
+df.to_csv(os.path.join(source_path, "sentences_before_49.csv"), index=False,
+          encoding="utf-8-sig")
